@@ -79,7 +79,7 @@ rsvg_acquire_data_data (const char *uri,
     gboolean base64 = FALSE;
 
     g_assert (out_len != NULL);
-    g_assert (g_str_has_prefix (uri, "data:"));
+    g_assert (strncmp (uri, "data:", 5) == 0);
 
     mime_type = NULL;
     start = uri + 5;
@@ -130,7 +130,7 @@ _rsvg_io_get_file_path (const gchar * filename,
 {
     gchar *absolute_filename;
 
-    if (g_file_test (filename, G_FILE_TEST_EXISTS) || g_path_is_absolute (filename)) {
+    if (g_path_is_absolute (filename)) {
         absolute_filename = g_strdup (filename);
     } else {
         gchar *tmpcdir;
